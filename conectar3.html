@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Conectar — Psicoterapia em Grupo</title>
+<link href="https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,300;0,400;0,600;0,700;1,400&family=HK+Grotesk:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.cdnfonts.com/css/hk-grotesk" rel="stylesheet"/>
+<style>
+  /* ── Reset & Base ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --azul-royal:   #00408D;
+    --azul-medio:   #3372B9;
+    --azul-claro:   #a7d2f8;
+    --amarelo:      #FBCC60;
+    --amarelo-mostarda: #F9B411;
+    --rosa:         #FFC5D5;
+    --salmao: #FB8071;
+    --creme:        #FFF4E4;
+    --creme-escuro: #F0E9DE;
+    --cinza-texto:  #4A4A5A;
+    --branco:       #FFFFFF;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'HK Grotesk', sans-serif;
+    background: var(--creme);
+    color: var(--cinza-texto);
+    line-height: 1.7;
+  }
+  h1, h2, h3 { font-family: 'DM Serif Display', serif; font-weight: 400; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--branco);
+    box-shadow: 0 2px 16px rgba(27,58,107,0.08);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw;
+    height: 68px;
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px; text-decoration: none;
+  }
+  .nav-logo-circle {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: var(--azul-royal);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .nav-logo-circle::after {
+    content: '';
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--amarelo);
+    position: absolute; bottom: 2px; right: 2px;
+  }
+  .nav-logo-circle span {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem; font-weight: 400;
+    color: var(--branco); z-index: 1;
+  }
+  .nav-logo-text strong {
+    display: block;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1rem; color: var(--azul-royal);
+  }
+  .nav-logo-text small {
+    font-size: 0.68rem; color: var(--azul-medio); letter-spacing: .03em;
+  }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    text-decoration: none; font-size: 0.82rem; font-weight: 500;
+    color: var(--cinza-texto); transition: color .2s;
+    letter-spacing: .02em;
+  }
+  .nav-links a:hover { color: var(--azul-medio); }
+  .nav-cta {
+    background: var(--azul-royal); color: var(--branco) !important;
+    padding: 8px 20px; border-radius: 50px;
+    font-weight: 600 !important;
+  }
+  .nav-cta:hover { background: var(--azul-medio); color: var(--branco) !important; }
+
+  /* ── HERO ── */
+  #inicio {
+    min-height: 100vh;
+    background: var(--azul-claro);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 120px 5vw 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  #inicio::before {
+    content: '';
+    position: absolute; top: -120px; right: -120px;
+    width: 520px; height: 520px; border-radius: 50%;
+    background: rgba(59,125,216);
+  }
+  #inicio::after {
+    content: '';
+    position: absolute; bottom: -80px; left: 30%;
+    width: 320px; height: 320px; border-radius: 50%;
+    background: rgba(245,200,66);
+  }
+  .hero-text { position: relative; z-index: 2; }
+  .hero-eyebrow {
+    display: inline-block;
+    background: rgba(245,200,66);
+    color: var(--azul-royal);
+    font-size: 0.75rem; font-weight: 600; letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: 6px 16px; border-radius: 50px;
+    margin-bottom: 28px;
+    border: 1px solid rgba(245,200,66,.35);
+  }
+  .hero-text h1 {
+    font-size: clamp(2.4rem, 4.5vw, 4rem);
+    color: var(--azul-royal);
+    line-height: 1.12;
+    margin-bottom: 20px;
+  }
+  .hero-text h1 em {
+    color: var(--salmao); font-style: normal;
+  }
+  .hero-text p {
+    font-family: 'Aleo', serif;
+    font-size: 1.05rem; color: var(--azul-medio);
+    max-width: 480px; margin-bottom: 40px;
+  }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--amarelo); color: var(--azul-royal);
+    padding: 14px 32px; border-radius: 50px;
+    font-weight: 700; font-size: .95rem;
+    text-decoration: none; transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 4px 20px rgba(245,200,66,.35);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(245,200,66,.45); }
+  .btn-primary2 {
+    background: var(--rosa); color: var(--azul-royal);
+    padding: 14px 32px; border-radius: 50px;
+    font-weight: 700; font-size: .95rem;
+    text-decoration: none; transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 4px 20px rgba(255, 197, 213,.35);
+  }
+  .btn-primary2:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(255, 197, 213,.65); }
+  .btn-ghost {
+    border: 2px solid rgba(255,255,255,.4);
+    color: var(--branco); padding: 14px 32px; border-radius: 50px;
+    font-weight: 600; font-size: .95rem;
+    text-decoration: none; transition: border-color .2s, background .2s;
+  }
+  .btn-ghost:hover { border-color: var(--branco); background: rgba(255,255,255,.08); }
+  .hero-visual { position: relative; z-index: 2; display: flex; justify-content: center; align-items: center; }
+  .hero-img-wrap {
+    position: relative;
+    width: 420px; height: 420px;
+  }
+  .hero-img-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover; border-radius: 50%;
+    border: 6px solid rgba(255,255,255);
+  }
+  .hero-badge {
+    position: absolute; bottom: 24px; left: -24px;
+    background: var(--branco);
+    border-radius: 16px; padding: 14px 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,.18);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-badge-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: var(--amarelo);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+  }
+  .hero-badge strong { display: block; font-size: .9rem; color: var(--azul-royal); }
+  .hero-badge span { font-size: .75rem; color: #888; }
+  .hero-dots {
+    position: absolute; top: 20px; right: -16px;
+    display: grid; grid-template-columns: repeat(4,1fr); gap: 8px;
+  }
+  /* .hero-dots span {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(255,255,255,.25);
+    display: block;
+  } */
+
+  /* ── SECTION BASE ── */
+  section { padding: 96px 5vw; }
+  .section-eyebrow {
+    display: inline-block;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--azul-medio);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: clamp(1.9rem, 3.2vw, 2.8rem);
+    color: var(--azul-royal); line-height: 1.18; margin-bottom: 18px;
+  }
+  .section-lead {
+    font-family: 'Aleo', serif;
+    font-size: 1.05rem; color: #6a6a7a;
+    max-width: 600px; margin-bottom: 52px;
+  }
+
+  /* ── COMO FUNCIONA ── */
+  #como-funciona { background: var(--creme); }
+  .como-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 64px; align-items: center;
+  }
+  .como-img {
+    border-radius: 24px; overflow: hidden;
+    position: relative;
+  }
+  .como-img img { width: 100%; height: 400px; object-fit: cover; display: block; }
+  .como-img-accent {
+    position: absolute; top: -20px; left: -20px;
+    width: 160px; height: 160px; border-radius: 50%;
+    background: var(--amarelo); opacity: .15; z-index: 0;
+  }
+  .benefits-list { list-style: none; display: flex; flex-direction: column; gap: 20px; margin-bottom: 32px; }
+  .benefits-list li {
+    display: flex; align-items: flex-start; gap: 16px;
+  }
+  .benefit-icon {
+    flex-shrink: 0;
+    width: 44px; height: 44px; border-radius: 30px;
+    background: linear-gradient(135deg, var(--salmao), var(--salmao));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+  }
+  .benefit-text strong { display: block; font-size: .95rem; color: var(--salmao); margin-bottom: 3px; }
+  .benefit-text p { font-size: .87rem; color: #777; margin: 0; line-height: 1.55; }
+
+  /* ── GRUPOS ── */
+  #grupos { background: var(--creme-escuro); }
+  .grupos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .grupo-card {
+    background: var(--branco);
+    border-radius: 20px; overflow: hidden;
+    box-shadow: 0 4px 24px rgba(27,58,107,.07);
+    transition: transform .25s, box-shadow .25s;
+  }
+  .grupo-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(27,58,107,.14); }
+  .grupo-card-img { height: 180px; overflow: hidden; }
+  .grupo-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+  .grupo-card:hover .grupo-card-img img { transform: scale(1.06); }
+  .grupo-card-body { padding: 24px; }
+  .grupo-tag {
+    display: inline-block;
+    font-size: 0.68rem; font-weight: 600; letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 4px 12px; border-radius: 50px;
+    margin-bottom: 12px;
+  }
+  .tag-blue { background: rgba(59,125,216,.12); color: var(--azul-medio); }
+  .tag-yellow { background: rgba(245,200,66,.18); color: #B8940A; }
+  .tag-pink { background: rgba(244,160,160,.2); color: #C05050; }
+  .grupo-card-body h3 { font-size: 1.15rem; color: var(--azul-royal); margin-bottom: 10px; }
+  .grupo-card-body p { font-size: .87rem; color: #777; line-height: 1.6; margin-bottom: 18px; }
+  .grupo-card-body a {
+    font-size: .85rem; font-weight: 600;
+    color: var(--azul-medio); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .grupo-card-body a::after { content: '→'; }
+  .grupo-card-body a:hover { color: var(--azul-royal); }
+
+  /* ── QUEM SOMOS ── */
+  #quem-somos { background: var(--azul-royal); }
+  #quem-somos .section-title { color: var(--branco); }
+  #quem-somos .section-eyebrow { color: var(--amarelo); }
+  #quem-somos .section-lead { color: var(--azul-claro); }
+  .quem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .team-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .team-card {
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 20px; padding: 24px;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    transition: background .25s;
+  }
+  .team-card:hover { background: rgba(255,255,255,.13); }
+  .team-avatar {
+    width: 76px; height: 76px; border-radius: 50%;
+    overflow: hidden; margin-bottom: 14px;
+    border: 3px solid var(--salmao);
+  }
+  .team-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .team-card h4 { font-family: 'DM Serif Display', serif; font-size: 1rem; color: var(--branco); margin-bottom: 4px; }
+  .team-card span { font-size: .78rem; color: var(--azul-claro); }
+  .quem-text p { color: var(--azul-claro); margin-bottom: 20px; font-size: .97rem; }
+  .stat-row { display: flex; gap: 32px; margin-top: 36px; }
+  .stat-item strong {
+    display: block; font-family: 'DM Serif Display', serif;
+    font-size: 2.2rem; color: var(--rosa);
+  }
+  .stat-item span { font-size: .82rem; color: rgba(168,200,240,.8); }
+
+  /* ── PROCESSO ── */
+  #processo { background: var(--creme); }
+  .processo-steps { display: flex; flex-direction: column; gap: 0; max-width: 760px; }
+  .step {
+    display: flex; gap: 32px; align-items: flex-start;
+    padding: 36px 0; border-bottom: 1px solid rgba(27,58,107,.08);
+    position: relative;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    flex-shrink: 0;
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--azul-royal);
+    color: var(--branco);
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem; font-weight: 400;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; z-index: 1;
+  }
+  .step-content h3 { font-size: 1.15rem; color: var(--azul-royal); margin-bottom: 8px; }
+  .step-content p { font-size: .9rem; color: #777; line-height: 1.65; }
+  .step-accent {
+    position: absolute; left: 27px; top: 92px;
+    width: 2px; height: calc(100% - 92px);
+    background: linear-gradient(to bottom, var(--azul-medio), transparent);
+  }
+  .step:last-child .step-accent { display: none; }
+  .processo-aside {
+    background: var(--azul-medio);
+    border-radius: 24px; padding: 40px;
+    color: var(--branco); align-self: start;
+  }
+  .processo-aside h3 { font-family: 'DM Serif Display', serif; font-size: 1.4rem; margin-bottom: 16px; }
+  .processo-aside p { font-size: .9rem; opacity: .85; margin-bottom: 24px; line-height: 1.65; }
+  .processo-layout { display: grid; grid-template-columns: 1fr 360px; gap: 64px; align-items: start; }
+  .processo-img { border-radius: 16px; overflow: hidden; margin-bottom: 24px; }
+  .processo-img img { width: 100%; height: 200px; object-fit: cover; display: block; }
+
+  /* ── FAQ ── */
+  #faq { background: var(--branco); }
+  .faq-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .faq-list { display: flex; flex-direction: column; gap: 12px; }
+  .faq-item {
+    border: 1px solid rgba(27,58,107,.10);
+    border-radius: 16px; overflow: hidden;
+  }
+  .faq-q {
+    width: 100%; background: none; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 24px; text-align: left;
+    font-family: 'HK Grotesk', sans-serif; font-size: .95rem;
+    font-weight: 600; color: var(--azul-royal);
+  }
+  .faq-q .faq-icon {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--rosa);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; transition: transform .3s; flex-shrink: 0;
+    color: var(--azul-medio); font-weight: 700; line-height: 1;
+  }
+  .faq-item.open .faq-icon { transform: rotate(45deg); background: var(--azul-royal); color: var(--branco); }
+  .faq-a {
+    max-height: 0; overflow: hidden;
+    transition: max-height .35s ease, padding .3s;
+    font-size: .9rem; color: #777; line-height: 1.7;
+    padding: 0 24px;
+  }
+  .faq-item.open .faq-a { max-height: 300px; padding: 0 24px 20px; }
+  .faq-visual { position: sticky; top: 100px; }
+  .faq-visual img { width: 100%; border-radius: 24px; margin-bottom: 24px; }
+  .faq-cta-box {
+    background: linear-gradient(135deg, var(--azul-royal), var(--azul-medio));
+    border-radius: 20px; padding: 32px;
+    color: var(--branco); text-align: center;
+  }
+  .faq-cta-box h4 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; margin-bottom: 10px; }
+  .faq-cta-box p { font-size: .88rem; opacity: .82; margin-bottom: 20px; }
+
+  /* ── CONTATO ── */
+  #contato { background: var(--creme-escuro); }
+  .contato-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .contato-info p { color: #6a6a7a; margin-bottom: 32px; font-size: .97rem; }
+  .contact-methods { display: flex; flex-direction: column; gap: 16px; margin-bottom: 36px; }
+  .contact-method {
+    display: flex; align-items: center; gap: 16px;
+    background: var(--branco); border-radius: 14px; padding: 16px 20px;
+    box-shadow: 0 2px 12px rgba(27,58,107,.06);
+  }
+  .contact-method-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .contact-method-icon.wpp { background: rgba(37,211,102,.12); }
+  .contact-method-icon.mail { background: rgba(59,125,216,.12); }
+  .contact-method-icon.insta { background: rgba(244,160,160,.2); }
+  .contact-method strong { display: block; font-size: .9rem; color: var(--azul-royal); }
+  .contact-method span { font-size: .82rem; color: #999; }
+  .form-wrap {
+    background: var(--branco);
+    border-radius: 24px; padding: 40px;
+    box-shadow: 0 8px 40px rgba(27,58,107,.08);
+  }
+  .form-wrap h3 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--azul-royal); margin-bottom: 24px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+  .form-group label { font-size: .82rem; font-weight: 600; color: var(--azul-royal); }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    border: 1.5px solid #E0E0EB;
+    border-radius: 10px; padding: 12px 14px;
+    font-family: 'HK Grotesk', sans-serif; font-size: .9rem;
+    color: var(--cinza-texto); background: var(--creme);
+    transition: border-color .2s;
+    outline: none;
+    width: 100%;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--azul-medio); }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .btn-submit {
+    width: 100%; padding: 14px;
+    background: var(--azul-royal); color: var(--branco);
+    border: none; border-radius: 50px;
+    font-family: 'HK Grotesk', sans-serif; font-size: 1rem; font-weight: 700;
+    cursor: pointer; transition: background .2s, transform .2s;
+  }
+  .btn-submit:hover { background: var(--azul-medio); transform: translateY(-1px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--azul-royal); color: rgba(168,200,240,.75);
+    padding: 48px 5vw 32px;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+  }
+  .footer-brand .nav-logo-text strong { color: var(--branco); font-size: 1.1rem; }
+  .footer-brand .nav-logo-text small { color: var(--amarelo); }
+  .footer-brand p { font-size: .85rem; margin-top: 14px; line-height: 1.65; max-width: 260px; }
+  .footer-col h5 {
+    font-family: 'DM Serif Display', serif;
+    font-size: .95rem; color: var(--branco); margin-bottom: 16px;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul a { color: rgba(168,200,240,.75); text-decoration: none; font-size: .85rem; transition: color .2s; }
+  .footer-col ul a:hover { color: var(--branco); }
+  .footer-bottom {
+    background: rgba(0,0,0,.2);
+    text-align: center; padding: 16px 5vw;
+    font-size: .78rem; color: rgba(168,200,240,.5);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    #inicio, .como-grid, .quem-grid, .faq-layout, .contato-layout, .processo-layout { grid-template-columns: 1fr; }
+    .hero-visual { display: none; }
+    .grupos-grid { grid-template-columns: 1fr 1fr; }
+    .team-cards { grid-template-columns: 1fr 1fr; }
+    footer { grid-template-columns: 1fr 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .stat-row { gap: 20px; }
+  }
+  @media (max-width: 600px) {
+    .grupos-grid, .team-cards { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#inicio" class="nav-logo">
+    <div class="nav-logo-circle"><span>C</span></div>
+    <div class="nav-logo-text">
+      <strong>Conectar</strong>
+      <small>Psicoterapia em Grupo</small>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#como-funciona">Como Funciona</a></li>
+    <li><a href="#grupos">Grupos</a></li>
+    <li><a href="#quem-somos">Quem Somos</a></li>
+    <li><a href="#processo">Processo</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contato" class="nav-cta">Agendar</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="inicio">
+  <div class="hero-text">
+    <span class="hero-eyebrow">Vivendo para <I>além</I> da ansiedade</span>
+    <h1>O encontro<br/>com o outro<br/>que <em>transforma</em></h1>
+    <p>Na Conectar, acreditamos que crescer em grupo é mais do que terapia — é redescobrir a força das conexões humanas. Um espaço seguro, acolhedor e especializado para você.</p>
+    <div class="hero-btns">
+      <a href="#contato" class="btn-primary">Quero me inscrever</a>
+      <a href="#como-funciona" class="btn-primary2">Como funciona?</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-img-wrap">
+      <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80" alt="Pessoas conectadas em grupo" />
+      <div class="hero-badge">
+        <div class="hero-badge-icon">🌱</div>
+        <div>
+          <strong>Lorem ipsum</strong>
+          <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit</span>
+        </div>
+      </div>
+      <div class="hero-dots">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section id="como-funciona">
+  <div class="como-grid">
+    <div class="como-img">
+      <div class="como-img-accent"></div>
+      <img src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=700&q=80" alt="Sessão de terapia em grupo" />
+    </div>
+    <div>
+      <span class="section-eyebrow">Entenda o método</span>
+      <h2 class="section-title">Como Funciona a Psicoterapia em Grupo?</h2>
+      <p style="color:#6a6a7a; margin-bottom:32px; font-size:.97rem;">A psicoterapia em grupo reúne pessoas com vivências semelhantes num espaço facilitado por psicólogos especializados. O grupo em si torna-se o principal instrumento terapêutico.</p>
+      <ul class="benefits-list">
+        <li>
+          <div class="benefit-icon">🤝</div>
+          <div class="benefit-text">
+            <strong>Pertencimento e identificação</strong>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+        </li>
+        <li>
+          <div class="benefit-icon">🔁</div>
+          <div class="benefit-text">
+            <strong>Aprendizagem interpessoal</strong>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+        </li>
+        <li>
+          <div class="benefit-icon">💬</div>
+          <div class="benefit-text">
+            <strong>Feedback genuíno e diverso</strong>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+        </li>
+        <li>
+          <div class="benefit-icon">🛡️</div>
+          <div class="benefit-text">
+            <strong>Confidencialidade e segurança</strong>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- GRUPOS -->
+<section id="grupos">
+  <span class="section-eyebrow">Encontre o seu espaço</span>
+  <h2 class="section-title">Nossos Temas</h2>
+  <p class="section-lead">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quidem odit quisquam magni nostrum deserunt repellat repudiandae amet illum minima sapiente iste, reprehenderit quam, labore harum ut. Debitis consequatur maiores dolore!</p>
+  <div class="grupos-grid">
+
+    <div class="grupo-card">
+      <div class="grupo-card-img">
+        <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600&q=80" alt="Grupo Ansiedade" />
+      </div>
+      <div class="grupo-card-body">
+        <span class="grupo-tag tag-blue">Saúde Mental</span>
+        <h3>Ansiedade e Medos</h3>
+        <p>Um espaço para compreender os mecanismos da ansiedade, desenvolver ferramentas de regulação emocional e reconhecer gatilhos no cotidiano.</p>
+        <a href="#contato">Tenho interesse</a>
+      </div>
+    </div>
+
+    <div class="grupo-card">
+      <div class="grupo-card-img">
+        <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=600&q=80" alt="Grupo Autoestima" />
+      </div>
+      <div class="grupo-card-body">
+        <span class="grupo-tag tag-yellow">Autoconhecimento</span>
+        <h3>Autoestima e Identidade</h3>
+        <p>Para quem deseja fortalecer a relação consigo mesmo, rever crenças limitantes e construir uma narrativa de vida mais autêntica e compassiva.</p>
+        <a href="#contato">Tenho interesse</a>
+      </div>
+    </div>
+
+    <div class="grupo-card">
+      <div class="grupo-card-img">
+        <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=600&q=80" alt="Grupo Relacionamentos" />
+      </div>
+      <div class="grupo-card-body">
+        <span class="grupo-tag tag-pink">Vínculos</span>
+        <h3>Relacionamentos e Vínculos</h3>
+        <p>Explorar padrões relacionais, trabalhar medos de intimidade, dependência emocional e desenvolver habilidades para relações mais saudáveis.</p>
+        <a href="#contato">Tenho interesse</a>
+      </div>
+    </div>
+
+    <div class="grupo-card">
+      <div class="grupo-card-img">
+        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80" alt="Grupo Transição de Vida" />
+      </div>
+      <div class="grupo-card-body">
+        <span class="grupo-tag tag-blue">Lorem Ipsum</span>
+        <h3>Lorem Ipsum</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, odit praesentium dolor temporibus iure porro velit fugiat cum dignissimos, pariatur fuga debitis ea, sint officia expedita odio! Autem, eligendi fugit.</p>
+        <a href="#contato">Tenho interesse</a>
+      </div>
+    </div>
+
+    <div class="grupo-card">
+      <div class="grupo-card-img">
+        <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=600&q=80" alt="Grupo Família" />
+      </div>
+      <div class="grupo-card-body">
+        <span class="grupo-tag tag-yellow">Lorem Ipsum</span>
+        <h3>Lorem Ipsum</h3>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi quod quo provident odio ipsa animi dignissimos quisquam mollitia perferendis nulla tempora aliquid facilis, voluptatibus praesentium ex unde dolorem? Perferendis, libero.</p>
+        <a href="#contato">Tenho interesse</a>
+      </div>
+    </div>
+
+    <div class="grupo-card">
+      <div class="grupo-card-img">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80" alt="Grupo Adultos Jovens" />
+      </div>
+      <div class="grupo-card-body">
+        <span class="grupo-tag tag-pink">Público Alvo</span>
+        <h3>Lorem Ipsum</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel voluptates fugiat tempora. Quis, cupiditate facere veritatis eligendi maiores nostrum nam, autem accusamus, placeat quae molestiae quos perspiciatis alias at rerum.</p>
+        <a href="#contato">Tenho interesse</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- QUEM SOMOS -->
+<section id="quem-somos">
+  <div class="quem-grid">
+    <div class="quem-text">
+      <span class="section-eyebrow">Nossa equipe</span>
+      <h2 class="section-title">Quem Somos</h2>
+      <p>Somos psicólogos especializados em psicoterapia de grupo, com formação em lorem ipsum. Acreditamos que o espaço terapêutico grupal é um dos ambientes mais poderosos de transformação humana disponíveis.</p>
+      <p>Nossa equipe reúne profissionais com experiência clínica em saúde mental, desenvolvimento humano e psicologia das relações, comprometidos com uma prática ética, acolhedora e rigorosa.</p>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex libero dolores tempora maiores assumenda commodi saepe odit veniam, tempore in possimus! Provident, distinctio porro? Nobis illo doloribus quae cupiditate autem.</p>
+      <div class="stat-row">
+        <div class="stat-item">
+          <strong>Lorem Ipsum</strong>
+          <span>Lorem Ipsum</span>
+        </div>
+        <div class="stat-item">
+          <strong>Lorem Ipsum</strong>
+          <span>Lorem Ipsum</span>
+        </div>
+        <div class="stat-item">
+          <strong>Lorem Ipsum</strong>
+          <span>Lorem Ipsum</span>
+        </div>
+      </div>
+    </div>
+    <div class="team-cards">
+      <div class="team-card">
+        <div class="team-avatar">
+          <img src="https://images.unsplash.com/photo-1573496799652-408c2ac9fe98?w=200&q=80" alt="Camila" />
+        </div>
+        <h4>Camila</h4>
+        <span>CRP 04/12345</span>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">
+          <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=200&q=80" alt="Guilherme" />
+        </div>
+        <h4>Guilherme</h4>
+        <span>CRP 04/67890</span>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">
+          <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=200&q=80" alt="João" />
+        </div>
+        <h4>João</h4>
+        <span>CRP 04/54321</span>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">
+          <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&q=80" alt="Paula" />
+        </div>
+        <h4>Paula</h4>
+        <span>CRP 04/11223</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESSO -->
+<section id="processo">
+  <span class="section-eyebrow">Passo a passo</span>
+  <h2 class="section-title">O Processo de Entrada</h2>
+  <p class="section-lead">Entrar em um grupo terapêutico é um passo significativo. Por isso, desenhamos um processo cuidadoso de acolhimento e preparação.</p>
+  <div class="processo-layout">
+    <div class="processo-steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Contato Inicial</h3>
+          <p>Você nos envia uma mensagem pelo formulário ou WhatsApp. Não é preciso saber exatamente o que está buscando — só precisamos do seu contato para iniciar a conversa.</p>
+        </div>
+        <div class="step-accent"></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Entrevista Individual de Triagem</h3>
+          <p>Realizamos uma sessão individual de 50 minutos com um de nossos psicólogos. O objetivo é entender o que você está vivendo, esclarecer dúvidas e avaliar qual grupo se adequa melhor ao seu momento.</p>
+        </div>
+        <div class="step-accent"></div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Lorem ipsum</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis provident corporis ullam optio ut nemo iure qui ratione esse distinctio, dolore animi soluta laboriosam quis. Velit officiis voluptatem architecto vitae!</p>
+        </div>
+        <div class="step-accent"></div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h3>Lorem ipsum</h3>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit iure in recusandae, aut placeat voluptatibus pariatur eaque odit deleniti assumenda eum porro atque voluptas nobis, dignissimos ea, vel veniam labore!</p>
+        </div>
+        <div class="step-accent"></div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h3>Início do Processo Terapêutico</h3>
+          <p>Com tudo alinhado, você assina o contrato terapêutico e passa a integrar o grupo de forma contínua. As sessões ocorrem semanalmente, com cerca de 120 minutos de duração.</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="processo-img">
+        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80" alt="Acolhimento e processo terapêutico" />
+      </div>
+      <div class="processo-aside">
+        <h3>Tem alguma dúvida antes de entrar em contato?</h3>
+        <p>É normal sentir insegurança antes de dar o primeiro passo. Preparamos uma lista de perguntas frequentes para ajudar você a entender melhor como funciona.</p>
+        <a href="#faq" class="btn-primary" style="display:inline-block;">Ver perguntas frequentes</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <span class="section-eyebrow">Tire suas dúvidas</span>
+  <h2 class="section-title">Dúvidas Frequentes</h2>
+  <div class="faq-layout">
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          A psicoterapia em grupo é tão eficaz quanto a individual?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Sim. Décadas de pesquisa em psicologia clínica demonstram que a psicoterapia em grupo apresenta eficácia equivalente à terapia individual para a maioria das demandas clínicas. Para questões relacionadas a vínculos, relações interpessoais e isolamento social, o formato grupal pode ser ainda mais poderoso, pois o grupo em si é o ambiente terapêutico.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Quantas pessoas participam de cada grupo?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Nossos grupos têm entre 8 e 12 participantes. Esse número é cuidadosamente escolhido para garantir que todos tenham espaço de fala e para que o grupo desenvolva coesão suficiente para o trabalho terapêutico profundo.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Posso fazer terapia em grupo e individual ao mesmo tempo?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Sim, e essa combinação é frequentemente recomendada. A terapia individual e a grupal se complementam muito bem. Muitos de nossos participantes também estão em atendimentos individuais com outros profissionais, e isso é totalmente compatível com o processo grupal.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          O que acontece se eu me sentir mal durante uma sessão?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">O grupo é conduzido por três psicólogos especializados que acompanham ativamente a dinâmica emocional do espaço. Cada participante tem o direito de não falar quando não quiser. Se necessário, há a possibilidade de contato com o terapeuta fora das sessões em situações de crise.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Quanto tempo dura o processo em grupo?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat impedit dolore neque rerum magni dolores, nobis vel, odit doloribus minima quibusdam perspiciatis ad? Iste sit a pariatur enim, tenetur praesentium.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Qual é o custo das sessões?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor nihil veniam numquam cumque a nesciunt perspiciatis voluptatum velit, libero soluta, sunt atque aliquam totam porro possimus veritatis modi nulla. Nemo.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Minha privacidade está garantida no grupo?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Absolutamente. Todos os participantes assinam um contrato de confidencialidade antes de iniciar o processo. O sigilo é um dos pilares éticos do trabalho em grupo e é levado com máxima seriedade por toda a equipe e pelos participantes.</div>
+      </div>
+
+    </div>
+    <div class="faq-visual">
+      <img src="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?w=600&q=80" alt="Espaço terapêutico acolhedor" />
+      <div class="faq-cta-box">
+        <h4>Ainda tem dúvidas?</h4>
+        <p>Entre em contato conosco. Ficaremos felizes em conversar antes mesmo da entrevista de triagem.</p>
+        <a href="#contato" class="btn-primary">Falar conosco</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato">
+  <div class="contato-layout">
+    <div class="contato-info">
+      <span class="section-eyebrow">Vamos conversar</span>
+      <h2 class="section-title">Contato e Agendamento</h2>
+      <p>O primeiro passo pode ser o mais difícil — mas estamos aqui para torná-lo mais leve. Entre em contato pelo canal que preferir ou preencha o formulário ao lado para agendar sua entrevista de triagem.</p>
+      <div class="contact-methods">
+        <div class="contact-method">
+          <div class="contact-method-icon wpp">💬</div>
+          <div>
+            <strong>WhatsApp</strong>
+            <span>(32) 99999-0000</span>
+          </div>
+        </div>
+        <div class="contact-method">
+          <div class="contact-method-icon mail">✉️</div>
+          <div>
+            <strong>E-mail</strong>
+            <span>contato@conectar.psi.br</span>
+          </div>
+        </div>
+        <div class="contact-method">
+          <div class="contact-method-icon insta">📷</div>
+          <div>
+            <strong>Instagram</strong>
+            <span>@conectar.psi</span>
+          </div>
+        </div>
+      </div>
+      <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80" alt="Nosso espaço em Juiz de Fora" style="width:100%; border-radius:20px; object-fit:cover; height:200px;" />
+    </div>
+    <div class="form-wrap">
+      <h3>Agende sua triagem</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="nome">Nome completo</label>
+          <input type="text" id="nome" placeholder="Seu nome" />
+        </div>
+        <div class="form-group">
+          <label for="tel">Telefone / WhatsApp</label>
+          <input type="tel" id="tel" placeholder="(32) 00000-0000" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" placeholder="seu@email.com" />
+      </div>
+      <!-- <div class="form-group">
+        <label for="grupo">Grupo de interesse</label>
+        <select id="grupo">
+          <option value="">Selecione uma temática...</option>
+          <option>Ansiedade e Medos</option>
+          <option>Autoestima e Identidade</option>
+          <option>Relacionamentos e Vínculos</option>
+          <option>Transições de Vida</option>
+          <option>Dinâmicas Familiares</option>
+          <option>Adultos de 20 a 35 anos</option>
+          <option>Não sei ainda</option>
+        </select>
+      </div> -->
+      <div class="form-group">
+        <label for="msg">Conte um pouco sobre o que está buscando (opcional)</label>
+        <textarea id="msg" placeholder="Escreva livremente — não há resposta certa ou errada aqui."></textarea>
+      </div>
+      <button class="btn-submit">Quero agendar minha triagem →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="nav-logo-text">
+      <strong>Conectar</strong>
+      <small>Psicoterapia em Grupo</small>
+    </div>
+    <p>Vivendo para além da ansiedade. Um espaço terapêutico dedicado à saúde mental coletiva em Juiz de Fora, MG.</p>
+  </div>
+  <div class="footer-col">
+    <h5>Navegação</h5>
+    <ul>
+      <li><a href="#inicio">Início</a></li>
+      <li><a href="#como-funciona">Como Funciona</a></li>
+      <li><a href="#grupos">Nossos Grupos</a></li>
+      <li><a href="#quem-somos">Quem Somos</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h5>Informações</h5>
+    <ul>
+      <li><a href="#processo">Processo de Entrada</a></li>
+      <li><a href="#faq">Dúvidas Frequentes</a></li>
+      <li><a href="#contato">Agendamento</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h5>Contato</h5>
+    <ul>
+      <li><a href="#">(32) 99999-0000</a></li>
+      <li><a href="#">contato@conectar.psi.br</a></li>
+      <li><a href="#">@conectar.psi</a></li>
+      <li><a href="#">Juiz de Fora, MG</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">© 2025 Conectar Psicoterapia em Grupo. Todos os direitos reservados. CRP responsável: 04/12345</div>
+
+<script>
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // Smooth nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 90) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--azul-medio)' : '';
+    });
+  });
+</script>
+</body>
+</html>
